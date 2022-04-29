@@ -6,14 +6,14 @@ import PaletaListaItem from "components/PaletaListaItem/PaletaListaItem";
 function PaletaLista() {
   const [paletaSelecionada, setPaletaSelecionada] = useState({});
   
-  const adicionarItem = (paletaIndex) => {
+  const onAdd = (paletaIndex) => {
     const paleta = {
       [paletaIndex]: Number(paletaSelecionada[paletaIndex] || 0) + 1,
     };
     setPaletaSelecionada({...paletaSelecionada, ...paleta});
   };
 
-  const removerItem = (paletaIndex) => {
+  const onRemove = (paletaIndex) => {
     const paleta = { [paletaIndex]: Number(paletaSelecionada[paletaIndex] || 0) -1 }
     setPaletaSelecionada({...paletaSelecionada, ...paleta});
   };
@@ -26,8 +26,8 @@ function PaletaLista() {
            paleta={paleta}
            quantidadeSelecionada={paletaSelecionada[index]}
            index={index}
-           onRemove={index => removerItem(index)}
-           onAdd={index => adicionarItem(index)}
+           onRemove={index => onRemove(index)}
+           onAdd={index => onAdd(index)}
            />
       ))}
     </div>
