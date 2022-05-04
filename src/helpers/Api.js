@@ -1,7 +1,7 @@
 export const PaletaContext = {
   paletaEndpoint: () => `${Api.baseUrl}/paletas`,
   paletaLista: () => `${PaletaContext.paletaEndpoint()}/all-paletas`,
-  paletaById: (id) => `${PaletaContext.paletaEndpoint()}/paleta/${id}`,
+  paletaById: (id) => `${PaletaContext.paletaEndpoint()}/one-paleta/${id}`,
   createPaleta: () => `${PaletaContext.paletaEndpoint()}/create-paleta`,
   updatePaletaById: (id) =>
     `${PaletaContext.paletaEndpoint()}/update-paleta/${id}`,
