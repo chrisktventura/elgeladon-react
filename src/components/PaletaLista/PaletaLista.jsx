@@ -11,6 +11,8 @@ function PaletaLista({ paletaCriada }) {
 
   const [paletaModal, setPaletaModal] = useState(false);
 
+  
+
   const onAdd = (paletaIndex) => {
     const paleta = {
       [paletaIndex]: Number(paletaSelecionada[paletaIndex] || 0) + 1,

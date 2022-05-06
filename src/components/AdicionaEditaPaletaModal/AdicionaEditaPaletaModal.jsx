@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react";
 import Modal from "components/Modal/Modal";
-import "./AdicionaPaletaModal.css";
+import "./AdicionaEditaPaletaModal.css";
 import { PaletaService } from "services/PaletaService";
 
-function AdicionaPaletaModal({ closeModal, onCreatePaleta }) {
+function AdicionaEditaPaletaModal({ closeModal, onCreatePaleta }) {
   const form = {
     preco: "",
     sabor: "",
@@ -21,15 +21,17 @@ function AdicionaPaletaModal({ closeModal, onCreatePaleta }) {
   };
 
   const [canDisable, setCanDisable] = useState(true);
+
   const canDisableSendButton = () => {
     const response = !Boolean(
-      state.descricao.length &&
-        state.sabor.length &&
-        state.foto.length &&
-        state.preco.length
+        state.descricao.length
+        && state.foto.length
+        && state.sabor.length
+        && state.preco.length
     );
+
     setCanDisable(response);
-  };
+}
 
   useEffect(() => {
     canDisableSendButton();
@@ -50,6 +52,7 @@ function AdicionaPaletaModal({ closeModal, onCreatePaleta }) {
     };
 
     const response = await PaletaService.create(paleta);
+
     onCreatePaleta(response);
     closeModal();
   };
@@ -130,17 +133,16 @@ function AdicionaPaletaModal({ closeModal, onCreatePaleta }) {
             />
           </div>
           <button
-            disable="{canDisable}"
-            className="AdicionaPaletaModal__enviar"
-            type="button"
-            onClick={createPaleta()}
-          >
-            Enviar
-          </button>
-        </form>
+        className="AdicionaPaletaModal__enviar"
+       type="button"
+         disabled={canDisable}
+          onClick={createPaleta} >
+        Enviar
+        </button>
+          </form>
       </div>
     </Modal>
   );
 }
 
-export default AdicionaPaletaModal;
+export default AdicionaEditaPaletaModal;
