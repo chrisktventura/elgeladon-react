@@ -2,6 +2,7 @@ import { useState } from "react";
 import { ActionMode } from "constants/index";
 import PaletaLista from "components/PaletaLista/PaletaLista";
 import Navbar from "components/Navbar/Navbar";
+import DeletaPaletaModal from "components/DeletaPaletaModal/DeletaPaletaModal";
 import AdicionaEditaPaletaModal from "components/AdicionaEditaPaletaModal/AdicionaEditaPaletaModal";
 import "./Home.css";
 
@@ -16,21 +17,65 @@ function Home() {
   const handleActions = (action) => {
     const novaAcao = modoAtual === action ? ActionMode.NORMAL : action;
     setModoAtual(novaAcao);
-  }
+  };
+
+  const [paletaParaEditar, setPaletaParaEditar] = useState();
+
+  const [paletaEditada, setPaletaEditada] = useState();
+
+  const [paletaParaDeletar, setPaletaParaDeletar] = useState();
+
+  const [paletaRemovida, setPaletaRemovida] = useState();
+
+  const handleDeletePaleta = (paletaToDelete) => {
+    setPaletaParaDeletar(paletaToDelete);
+  };
+
+  const handleUpdatePaleta = (paletaToUpdate) => {
+    setPaletaParaEditar(paletaToUpdate);
+    setCanShowAdicionaPaletaModal(true);
+  };
+
+  const handleCloseModal = () => {
+    setCanShowAdicionaPaletaModal(false);
+    setPaletaParaAdicionar();
+    setPaletaParaDeletar();
+    setPaletaParaEditar();
+    setModoAtual(ActionMode.NORMAL);
+  };
 
   return (
     <div className="Home">
-      <Navbar 
-      mode={modoAtual}
-      createPaleta={() => setCanShowAdicionaPaletaModal(true)} 
-      updatePaleta={() =>  handleActions(ActionMode.ATUALIZAR)}/>
-      
+      <Navbar
+        mode={modoAtual}
+        createPaleta={() => setCanShowAdicionaPaletaModal(true)}
+        deletePaleta={() => handleActions(ActionMode.DELETAR)}
+        updatePaleta={() => handleActions(ActionMode.ATUALIZAR)}
+      />
+
       <div className="Home__container">
-        <PaletaLista paletaCriada={paletaParaAdicionar} />
+        <PaletaLista
+          mode={modoAtual}
+          paletaCriada={paletaParaAdicionar}
+          paletaEditada={paletaEditada}
+          paletaRemovida={paletaRemovida}
+          deletePaleta={handleDeletePaleta}
+          updatePaleta={handleUpdatePaleta}
+        />
         {canShowAdicionaPaletaModal && (
           <AdicionaEditaPaletaModal
-            closeModal={() => setCanShowAdicionaPaletaModal(false)}
+            mode={modoAtual}
+            paletaToUpdate={paletaParaEditar}
+            onUpdatePaleta={(paleta) => setPaletaEditada(paleta)}
+            closeModal={handleCloseModal}
             onCreatePaleta={(paleta) => setPaletaParaAdicionar(paleta)}
+          />
+        )}
+        {paletaParaDeletar && (
+          <DeletaPaletaModal
+            paletaParaDeletar={paletaParaDeletar}
+            closeModal={handleCloseModal}
+            onDeletePaleta={(paleta) => setPaletaRemovida(paleta)}
           />
         )}
       </div>

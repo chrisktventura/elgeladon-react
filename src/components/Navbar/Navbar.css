@@ -68,7 +68,7 @@
   border: none;
   transform: translateY(-3px);
   border-radius: 10px;
-  transition: all .5s;
+  transition: all 0.5s;
   padding: 0;
 }
 
@@ -79,6 +79,10 @@
 
 .Paleta--ativa {
   background: rgba(148, 0, 211);
+}
+
+.Paleta--deletar {
+  background: rgba(211, 0, 0);
 }
 
 @media (max-width: 1220px) {

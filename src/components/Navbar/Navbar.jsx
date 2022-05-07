@@ -4,8 +4,9 @@ import sacola from "assets/icons/sacola.svg";
 import paleta from "assets/icons/paleta.svg";
 import logo from "assets/icons/logo.svg";
 import atualizar from "assets/icons/atualizar.svg";
+import deletar from "assets/icons/deletar.svg";
 
-function Navbar({ createPaleta, updatePaleta, mode }) {
+function Navbar({ createPaleta, updatePaleta, mode, deletePaleta }) {
   return (
     <div className="Home__header Header">
       <div className="row">
@@ -32,6 +33,20 @@ function Navbar({ createPaleta, updatePaleta, mode }) {
               width="40px"
               className="Paleta__icone"
               alt="Editar paleta"
+            />
+          </button>
+          <button
+            type="button"
+            className={`Opcoes__paleta Paleta ${
+              mode === ActionMode.DELETAR && "Paleta--deletar"
+            }`}
+            onClick={() => deletePaleta()}
+          >
+            <img
+              src={deletar}
+              width="40px"
+              className="Paleta__icone"
+              alt="Deletar paleta"
             />
           </button>
           <button
